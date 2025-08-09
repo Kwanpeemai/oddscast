@@ -2,10 +2,14 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[ show ]
 
   # GET /articles or /articles.json
+  # def index
+  #   @articles = Article.all
+  # end
   def index
-    @articles = Article.all
+    @articles = Article.order(created_at: :desc).limit(5)
+    @highlight = @articles.first
+    @other_articles = @articles.offset(1) # หรือ : offset/more logic flex
   end
-
   # GET /articles/1 or /articles/1.json
   def show
   end

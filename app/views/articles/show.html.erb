@@ -1,10 +1,32 @@
-<p style="color: green"><%= notice %></p>
+<% if notice.present? %>
+  <p class="mb-6 text-green-600 font-semibold text-center"><%= notice %></p>
+<% end %>
 
-<%= render @article %>
+<div class="flex justify-center items-start min-h-screen py-10">
+  <div class="max-w-6xl w-full flex flex-col md:flex-row bg-white rounded-2xl shadow-lg mx-4 overflow-hidden">
+    
+    <div class="flex-1 min-w-[320px] md:min-w-[480px] lg:min-w-[540px] aspect-square bg-gray-100 flex items-center justify-center">
+      <% if @article.cover_image.attached? %>
+        <%= image_tag @article.cover_image, alt: @article.title, class: "w-full h-full object-cover" %>
+      <% else %>
+        <div class="w-full h-full flex items-center justify-center text-gray-400 text-lg">
+          No Image Available
+        </div>
+      <% end %>
+    </div>
 
-<div>
-  <%# <%= link_to "Edit this article", edit_admin_article_path(@article) %>
-  <%= link_to "Back to articles", articles_path %>
+    <div class="flex-1 p-8 flex flex-col justify-between">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-6 text-gray-900"><%= @article.title %></h1>
+        <div class="mb-8 text-gray-700 text-lg leading-relaxed">
+          <%= simple_format(@article.description) %>
+        </div>
+      </div>
 
-  <%# <%= button_to "Destroy this article", @article, method: :delete %>
+      <div class="flex justify-end">
+        <%= link_to "Back", articles_path, class: "px-6 py-3 text-lg bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full transition shadow-sm hover:shadow-md" %>
+      </div>
+    </div>
+
+  </div>
 </div>

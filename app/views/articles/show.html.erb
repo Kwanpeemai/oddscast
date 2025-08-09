@@ -8,3 +8,31 @@
 
   <%# <%= button_to "Destroy this article", @article, method: :delete %>
 </div>
+
+
+<div class="flex justify-center py-10 bg-gray-50">
+  <div class="max-w-6xl flex gap-8 px-4">
+    
+    <!-- Image -->
+    <%= image_tag "ai.png", class: "w-1/2 aspect-square object-cover rounded" %>
+    
+    <!-- Content -->
+    <div class="w-1/2 flex flex-col justify-center">
+      <h2 class="text-3xl font-bold mb-4">Title Content</h2>
+      <p class="text-gray-700 leading-relaxed mb-6">
+        It is a long established fact that a reader will be distracted by the readable content 
+        of a page when looking at its layout. The point of using Lorem Ipsum is that it has a 
+        more-or-less normal distribution of letters, as opposed to using 'Content here, content 
+        here', making it look like readable English. Many desktop publishing packages and web 
+        page editors now use Lorem Ipsum as their default model text, and a search for 'lorem 
+        ipsum' will uncover many web sites still in their infancy. Various versions have evolved 
+        over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+      </p>
+      <a href="#"
+         class="bg-gray-200 text-gray-800 px-6 py-2 rounded-full hover:bg-gray-300 transition">
+        See More Detail
+      </a>
+    </div>
+
+  </div>
+</div>

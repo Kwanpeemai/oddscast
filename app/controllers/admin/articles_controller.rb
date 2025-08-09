@@ -1,6 +1,6 @@
 module Admin
   class Admin::ArticlesController < ApplicationController
-    before_action :set_admin_article, only: %i[ show edit update destroy ]
+    before_action :set_article, only: %i[ show edit update destroy ]
 
     # GET /admin/articles or /admin/articles.json
     def index
@@ -22,7 +22,7 @@ module Admin
 
     # POST /admin/articles or /admin/articles.json
     def create
-      @article = Article.new(admin_article_params)
+      @article = Article.new(article_params)
 
       respond_to do |format|
         if @article.save
@@ -38,7 +38,7 @@ module Admin
     # PATCH/PUT /admin/articles/1 or /admin/articles/1.json
     def update
       respond_to do |format|
-        if @article.update(admin_article_params)
+        if @article.update(article_params)
           format.html { redirect_to [ :admin, @article ], notice: "Article was successfully updated.", status: :see_other }
           format.json { render :show, status: :ok, location: @article }
         else
@@ -60,12 +60,12 @@ module Admin
 
     private
       # Use callbacks to share common setup or constraints between actions.
-      def set_admin_article
-        @article = Article.find(params.expect(:id))
+      def set_article
+        @article = Article.find(params[:id])
       end
 
       # Only allow a list of trusted parameters through.
-      def admin_article_params
+      def article_params
         params.expect(article: [ :title, :description, :cover_image ])
       end
   end

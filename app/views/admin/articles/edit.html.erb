@@ -1,12 +1,53 @@
-<% content_for :title, "Editing article" %>
+<% content_for :title, "Admin · Editing Article" %>
 
-<h1>Editing article</h1>
+<div class="max-w-4xl mx-auto pt-12 px-4 sm:px-6 lg:px-8">
+  <div class="flex items-center justify-between mb-10">
+    <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">Edit Article</h1>
+    <%= link_to "Back to Articles List", admin_articles_path,
+          class: "inline-flex items-center px-5 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-semibold shadow-md transition duration-200" %>
+  </div>
 
-<%= render "form", article: @article %>
+  <div class="bg-white rounded-2xl shadow-lg p-10">
+    <%= form_with(model: [:admin, @article], local: true, html: { enctype: "multipart/form-data" }) do |form| %>
+      <% if @article.errors.any? %>
+        <div class="mb-8 border-l-4 border-red-600 bg-red-50 p-5 rounded-lg text-red-900 shadow-sm">
+          <h2 class="font-bold mb-3 text-lg"><%= pluralize(@article.errors.count, "error") %> prevented this article from being saved:</h2>
+          <ul class="list-disc pl-6 space-y-1 text-sm">
+            <% @article.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-<br>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="space-y-8 md:col-span-1">
+          <div>
+            <%= form.label :title, "Article Title", class: "block text-gray-900 font-semibold mb-3" %>
+            <%= form.text_field :title, placeholder: "Enter article title", 
+                  class: "w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-500 transition" %>
+          </div>
 
-<div>
-  <%= link_to "Show this article", [ :admin, @article ] %> |
-  <%= link_to "Back to articles", admin_articles_path %>
+          <div>
+            <%= form.label :cover_image, "Cover Image", class: "block text-gray-900 font-semibold mb-3" %>
+            <%= form.file_field :cover_image, 
+                  class: "block w-full text-gray-700 file:border-0 file:bg-blue-100 file:text-blue-700 file:px-5 file:py-2 file:rounded-lg file:font-semibold hover:file:bg-blue-200 transition cursor-pointer" %>
+          </div>
+        </div>
+
+        <div class="md:col-span-2">
+          <%= form.label :description, "Content / Description", class: "block text-gray-900 font-semibold mb-3" %>
+          <%= form.text_area :description, rows: 12, placeholder: "Write your article content here...", 
+                class: "w-full h-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-500 resize-none transition" %>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-5 mt-20">
+        <%= form.submit "Update Article", 
+              class: "flex-1 py-3 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-400 text-white text-lg font-semibold rounded-2xl shadow-md transition" %>
+        <%= link_to "Cancel", admin_articles_path, 
+              class: "flex-1 text-center py-3 bg-gray-100 hover:bg-gray-200 rounded-2xl text-gray-800 font-semibold shadow-md transition" %>
+      </div>
+    <% end %>
+  </div>
 </div>

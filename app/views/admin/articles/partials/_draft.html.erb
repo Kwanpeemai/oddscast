@@ -22,11 +22,13 @@
       <% end %>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="space-y-8 md:col-span-1">
-          <div>
-            <%= form.label :title, "Article Title", class: "block text-gray-900 font-semibold mb-3" %>
-            <%= form.text_field :title, placeholder: "Enter article title", 
+          <%= form.fields_for :content do |content_form| %>
+            <div>
+              <%= content_form.label :title, "Article Title", class: "block text-gray-900 font-semibold mb-3" %>
+              <%= content_form.text_field :title, placeholder: "Enter article title", 
                   class: "w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-500 transition" %>
-          </div>
+            </div>
+          <% end %>
           <div>
             <%= form.label :cover_image, "Cover Image", class: "block text-gray-900 font-semibold mb-3" %>
             <%= form.file_field :cover_image, 

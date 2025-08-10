@@ -1,0 +1,2 @@
+module YoutubeClipsHelper
+end

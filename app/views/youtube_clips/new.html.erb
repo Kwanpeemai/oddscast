@@ -1,0 +1,9 @@
+<% content_for :title, "New youtube clip" %>
+
+<div class="md:w-2/3 w-full">
+  <h1 class="font-bold text-4xl">New youtube clip</h1>
+
+  <%= render "form", youtube_clip: @youtube_clip %>
+
+  <%= link_to "Back to youtube clips", youtube_clips_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+</div>

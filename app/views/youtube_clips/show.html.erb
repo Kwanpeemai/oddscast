@@ -1,0 +1,36 @@
+<% content_for :title, @youtube_clip.title %>
+
+<div class="md:w-2/3 w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <h1 class="font-bold text-4xl mb-6"><%= @youtube_clip.title %></h1>
+
+  <!-- แสดงคลิป -->
+  <div class="bg-black py-6 flex flex-col items-center rounded-2xl shadow-lg mb-8">
+    <div class="w-full max-w-4xl aspect-video rounded-lg overflow-hidden">
+      <iframe 
+        class="w-full h-full"
+        src="https://www.youtube.com/embed/<%= @youtube_clip.video_id %>"
+        title="<%= @youtube_clip.title %>"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <% if @youtube_clip.description.present? %>
+      <p class="text-white mt-6 text-center max-w-2xl"><%= @youtube_clip.description %></p>
+    <% end %>
+  </div>
+
+  <!-- ปุ่ม action -->
+  <%= link_to "Edit this YouTube clip", edit_youtube_clip_path(@youtube_clip),
+        class: "mt-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%= link_to "Back to YouTube clips", youtube_clips_path,
+        class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <div class="inline-block ml-2">
+    <%= button_to "Destroy this YouTube clip", @youtube_clip, method: :delete,
+        class: "mt-2 rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium" %>
+  </div>
+</div>

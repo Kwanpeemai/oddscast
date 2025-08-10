@@ -13,7 +13,7 @@ module Admin
 
     # GET /admin/articles/new
     def new
-      @article = Article.new
+      @article = Article.new(content: Content.new)
     end
 
     # GET /admin/articles/1/edit
@@ -74,7 +74,7 @@ module Admin
 
       # Only allow a list of trusted parameters through.
       def article_params
-        params.expect(article: [ :title, :description, :cover_image ])
+        params.expect(article: [ :description, :cover_image, :content_attributes => [ :title ] ])
       end
   end
 end

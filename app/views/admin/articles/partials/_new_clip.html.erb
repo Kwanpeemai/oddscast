@@ -1,0 +1,51 @@
+<% content_for :title, "Create New YouTube Clip" %>
+
+<div class="max-w-4xl mx-auto pt-12 px-4 sm:px-6 lg:px-8">
+  <div class="flex items-center justify-between mb-10">
+    <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">Create New YouTube Clip</h1>
+    <%= link_to "Back to Clips List", youtube_clips_path,
+          class: "inline-flex items-center px-5 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-semibold shadow-md transition duration-200" %>
+  </div>
+
+  <div class="bg-white rounded-2xl shadow-lg p-10">
+    <%= form_with(model: @youtube_clip, local: true) do |form| %>
+      <% if @youtube_clip.errors.any? %>
+        <div class="mb-8 border-l-4 border-red-600 bg-red-50 p-5 rounded-lg text-red-900 shadow-sm">
+          <h2 class="font-bold mb-3 text-lg"><%= pluralize(@youtube_clip.errors.count, "error") %> prevented this clip from being saved:</h2>
+          <ul class="list-disc pl-6 space-y-1 text-sm">
+            <% @youtube_clip.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="space-y-8">
+        <div>
+          <%= form.label :title, "Clip Title", class: "block text-gray-900 font-semibold mb-3" %>
+          <%= form.text_field :title, placeholder: "Enter clip title", 
+                class: "w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-500 transition" %>
+        </div>
+
+        <div>
+          <%= form.label :video_id, "YouTube Video ID or URL", class: "block text-gray-900 font-semibold mb-3" %>
+          <%= form.text_field :video_id, placeholder: "Example: dQw4w9WgXcQ or full URL", 
+                class: "w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-500 transition" %>
+        </div>
+
+        <div>
+          <%= form.label :description, "Description", class: "block text-gray-900 font-semibold mb-3" %>
+          <%= form.text_area :description, rows: 5, placeholder: "Write your clip description...", 
+                class: "w-full h-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:border-blue-500 resize-none transition" %>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-5 mt-10">
+        <%= form.submit "Save Clip", 
+              class: "flex-1 py-3 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-400 text-white text-lg font-semibold rounded-2xl shadow-md transition" %>
+        <%= link_to "Cancel", youtube_clips_path, 
+              class: "flex-1 text-center py-3 bg-gray-100 hover:bg-gray-200 rounded-2xl text-gray-800 font-semibold shadow-md transition" %>
+      </div>
+    <% end %>
+  </div>
+</div>

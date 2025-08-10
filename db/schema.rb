@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_10_030829) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_10_080650) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,12 +40,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_030829) do
   end
 
   create_table "articles", force: :cascade do |t|
-    t.string "title"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "cover_image"
     t.integer "status", default: 0
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "content_id"
+    t.index ["content_id"], name: "index_comments_on_content_id"
+  end
+
+  create_table "contents", force: :cascade do |t|
+    t.string "title"
+    t.string "contentable_type", null: false
+    t.integer "contentable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contentable_type", "contentable_id"], name: "index_contents_on_contentable"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -65,7 +81,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_030829) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  create_table "videos", force: :cascade do |t|
+    t.string "youtube_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "youtube_clips", force: :cascade do |t|
+    t.string "title"
+    t.string "video_id"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "contents"
   add_foreign_key "sessions", "users"
 end

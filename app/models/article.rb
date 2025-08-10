@@ -7,5 +7,6 @@ class Article < ApplicationRecord
     accepts_nested_attributes_for :content
     delegate :title, to: :content, allow_nil: true
 
-    has_many :comments, through: :content
+    # has_many :comments, through: :content
+    delegate :comments, to: :content, allow_nil: true
 end

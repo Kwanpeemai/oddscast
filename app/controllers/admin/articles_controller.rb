@@ -58,6 +58,14 @@ module Admin
       end
     end
 
+    def submit
+      if @article.update(article_params.merge(status: wating_for_review))
+        redirect_to [ :admin, @article ], notice: "Article was successfully updated.", status: :see_other
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_article

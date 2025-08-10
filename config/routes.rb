@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   namespace :admin do
-    resources :articles
+    resources :articles do
+      member do
+        patch :submit
+      end
+    end
     root "articles#index"
   end
 

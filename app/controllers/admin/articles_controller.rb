@@ -4,7 +4,9 @@ module Admin
 
     # GET /admin/articles or /admin/articles.json
     def index
-      @articles = Article.all
+      @draft_articles = Article.draft.order(updated_at: :desc)
+      @waiting_articles = Article.waiting_for_review.order(updated_at: :desc)
+      @published_articles = Article.published.order(updated_at: :desc)
     end
 
     # GET /admin/articles/1 or /admin/articles/1.json
@@ -27,10 +29,8 @@ module Admin
       respond_to do |format|
         if @article.save
           format.html { redirect_to [ :admin, @article ], notice: "Article was successfully created." }
-          format.json { render :show, status: :created, location: @article }
         else
           format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @article.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -58,13 +58,28 @@ module Admin
       end
     end
 
-    def submit
-      if @article.update(article_params.merge(status: wating_for_review))
-        redirect_to [ :admin, @article ], notice: "Article was successfully updated.", status: :see_other
-      else
-        render :edit, status: :unprocessable_entity
-      end
-    end
+  def submit
+    @article = Article.find(params[:id])
+    @article.update(status: "waiting_for_review")
+    redirect_to admin_articles_path(), notice: "Sent for review."
+  end
+
+  def waiting
+    @article = Article.find(params[:id])
+    render :waiting
+  end
+
+  def approve
+    @article = Article.find(params[:id])
+    @article.update(status: "published")
+    redirect_to admin_article_path(@article), notice: "Article approved."
+  end
+
+  def reject
+    @article = Article.find(params[:id])
+    @article.update(status: "rejected")
+    redirect_to admin_article_path(@article), notice: "Article rejected."
+  end
 
     private
       # Use callbacks to share common setup or constraints between actions.
@@ -74,7 +89,7 @@ module Admin
 
       # Only allow a list of trusted parameters through.
       def article_params
-        params.expect(article: [ :description, :cover_image, :content_attributes => [ :title ] ])
+        params.require(:article).permit(:description, :cover_image, :status, content_attributes: [ :title ])
       end
   end
 end

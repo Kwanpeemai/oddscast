@@ -1,55 +1,64 @@
 <header class="bg-white shadow px-8 py-4">
-  <div class="flex items-center justify-between flex-wrap gap-4">
-    <div class="flex items-center gap-8 flex-wrap">
-      <%= link_to root_path do %>
-        <img src="<%= asset_path('logo.png') %>" class="w-12 h-12 rounded-md object-cover" alt="Logo">
-      <% end %>
-      <span class="flex items-center font-semibold text-gray-700">
-        <i class="fa fa-location-dot text-primary mr-2"></i> Tipco Tower2
-      </span>
-      <span class="flex items-center font-semibold text-gray-700">
-        <i class="fa fa-phone text-primary mr-2"></i> 09xxxxxxxx
-      </span>
+  <div class="max-w-7xl mx-auto flex flex-col gap-2">
+    <!-- Top bar -->
+    <div class="flex items-center justify-between gap-2 flex-wrap pb-2 border-b">
+      <!-- Logo & Contact Info -->
+      <div class="flex items-center gap-6 flex-wrap">
+        <%= link_to root_path do %>
+          <img src="<%= asset_path('logo.png') %>" class="w-12 h-12 rounded-md object-cover" alt="Logo">
+        <% end %>
+        <span class="flex items-center font-semibold text-gray-700 text-sm">
+          <i class="fa fa-location-dot text-primary mr-1"></i> Tipco Tower2
+        </span>
+        <span class="flex items-center font-semibold text-gray-700 text-sm">
+          <i class="fa fa-phone text-primary mr-1"></i> 09xxxxxxxx
+        </span>
+      </div>
+      <!-- Social Links -->
+      <div class="flex items-center gap-3 text-lg text-gray-500">
+        <%= link_to "#", class: "hover:text-blue-700" do %><i class="fab fa-facebook-f"></i><% end %>
+        <%= link_to "#", class: "hover:text-sky-500" do %><i class="fab fa-twitter"></i><% end %>
+        <%= link_to "#", class: "hover:text-blue-500" do %><i class="fab fa-linkedin-in"></i><% end %>
+      </div>
     </div>
-    <div class="flex items-center gap-4 text-xl text-gray-600">
-      <%= link_to "#", class: "hover:text-blue-700" do %>
-        <i class="fab fa-facebook-f"></i>
-      <% end %>
-      <%= link_to "#", class: "hover:text-sky-500" do %>
-        <i class="fab fa-twitter"></i>
-      <% end %>
-      <%= link_to "#", class: "hover:text-blue-500" do %>
-        <i class="fab fa-linkedin-in"></i>
-      <% end %>
-    </div>
-  </div>
-  <hr class="my-3">
-  <div class="flex items-center gap-6 flex-wrap">
-    <form class="relative">
-      <span class="absolute left-3 top-2.5 text-gray-400">
-        <i class="fa fa-search"></i>
-      </span>
-      <input
-        type="text"
-        placeholder="Search"
-        class="w-full pl-9 pr-4 py-2 bg-gray-100 rounded-md border border-gray-300 text-base text-gray-700 focus:ring-primary focus:border-primary"
-      >
-      </form>
-      <nav class="flex justify-center items-center gap-6 flex-1 flex-wrap">
+
+    <!-- Navigation + Search -->
+    <div class="flex items-center justify-between gap-6 flex-wrap mt-2">
+      <!-- Main Navigation -->
+      <nav class="flex items-center gap-6 flex-wrap">
         <%= link_to "Home", root_path, class: "hover:text-primary transition font-medium" %>
         <%= link_to "Articles", articles_path, class: "hover:text-primary transition font-medium" %>
-        <%= link_to "Admin Articles", admin_articles_path, class: "hover:text-primary transition font-medium" %>
+        <% if current_user %>
+          <%= link_to "Admin Articles", admin_articles_path, class: "hover:text-primary transition font-medium" %>
+        <% end %>
         <%= link_to "Contact Us", "#", class: "hover:text-primary transition font-medium" %>
-        <span class="flex items-center gap-1 text-gray-600 ml-auto">
-          <i class="fa fa-user"></i> 
-        </span>
-        <%= button_to "Logout", session_path, method: :delete,
-          class: "ml-4 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-bold px-8 py-2 rounded-md hover:from-primary hover:to-primary transition" %>
-        <span class="flex items-center gap-1 text-gray-600 ml-auto">
-          <i class="fa fa-user"></i> Unknown
-        </span>
-        <%= link_to "Sign in", new_session_path,
-          class: "ml-4 bg-gradient-to-r from-gray-800 to-gray-900 text-white font-bold px-8 py-2 rounded-md hover:from-primary hover:to-primary transition" %>
       </nav>
+      <!-- Search + User Section -->
+      <div class="flex items-center gap-6">
+        <form class="relative">
+          <span class="absolute left-3 top-2.5 text-gray-400">
+            <i class="fa fa-search"></i>
+          </span>
+          <input
+            type="text"
+            placeholder="Search"
+            class="w-40 md:w-56 pl-9 pr-4 py-1.5 bg-gray-100 rounded-md border border-gray-300 text-base text-gray-700 focus:ring-primary focus:border-primary"
+          >
+        </form>
+        <% if current_user %>
+          <span class="flex items-center gap-2 text-gray-700 text-base font-medium">
+            <i class="fa fa-user"></i> Admin
+          </span>
+          <%= button_to "Sign out", session_path, method: :delete,
+            class: "bg-gradient-to-r from-gray-800 to-gray-900 text-white font-bold px-5 py-1.5 rounded-md hover:from-primary hover:to-primary transition" %>
+        <% else %>
+          <span class="flex items-center gap-2 text-gray-500 text-base font-medium">
+            <i class="fa fa-user"></i> Guest
+          </span>
+          <%= link_to "Sign in", new_session_path,
+            class: "bg-gradient-to-r from-gray-800 to-gray-900 text-white font-bold px-5 py-1.5 rounded-md hover:from-primary hover:to-primary transition" %>
+        <% end %>
+      </div>
     </div>
-  </header>
+  </div>
+</header>

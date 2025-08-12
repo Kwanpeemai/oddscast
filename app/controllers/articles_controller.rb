@@ -6,12 +6,14 @@ class ArticlesController < ApplicationController
   #   @articles = Article.all
   # end
   def index
-    @articles = Article.order(created_at: :desc).limit(5)
+    # @articles = Article.order(created_at: :desc).limit(5)
+    @articles = Article.published.order(created_at: :desc).limit(5)
     @highlight = @articles.first
     @other_articles = @articles.offset(1) # หรือ : offset/more logic flex
   end
   # GET /articles/1 or /articles/1.json
   def show
+    @article = Article.published.find(params[:id])
   end
 
   # GET /articles/new

@@ -12,22 +12,51 @@
     </div>
   </div>
 
-  <div id="articles" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-    <% @articles.each do |article| %>
-      <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-6 flex flex-col">
-        <% if article.cover_image.attached? %>
-          <%= image_tag article.cover_image, alt: article.title, class: "w-full h-40 object-cover mb-4 rounded-md shadow" %>
-        <% else %>
-          <div class="w-full h-40 bg-gray-100 rounded-md mb-4 flex items-center justify-center text-gray-300 text-lg font-semibold">
-            No Image Available 11111
-          </div>
-        <% end %>
-        <h2 class="text-xl font-bold mb-1 truncate"><%= article.title %></h2>
-        <div class="text-gray-500 text-sm mb-4 whitespace-pre-line line-clamp-3"><%= article.description.to_s.truncate(90) %></div>
-        <div class="mt-auto flex justify-end">
-          <%= link_to "Show", [:admin, article], class: "px-4 py-2 bg-gray-800 text-white font-semibold rounded hover:bg-gray-600 transition" %>
-        </div>
-      </div>
-    <% end %>
+  <%# -------- Draft Section -------- %>
+  <div class="mb-8">
+    <h2 class="text-xl font-bold mb-4 text-gray-700 flex items-center gap-2">
+      <span class="inline-block w-3 h-3 bg-gray-400 rounded-full"></span>
+      Draft
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+      <% @draft_articles.each do |article| %>
+        <%= render partial: "admin/articles/partials/card", locals: { article: article } %>
+      <% end %>
+      <% if @draft_articles.blank? %>
+        <div class="text-gray-400 italic">No draft articles.</div>
+      <% end %>
+    </div>
+  </div>
+
+  <%# -------- Waiting for review Section -------- %>
+  <div class="mb-8">
+    <h2 class="text-xl font-bold mb-4 text-yellow-700 flex items-center gap-2">
+      <span class="inline-block w-3 h-3 bg-yellow-400 rounded-full"></span>
+      Waiting for Review
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+      <% @waiting_articles.each do |article| %>
+        <%= render partial: "admin/articles/partials/card", locals: { article: article } %>
+      <% end %>
+      <% if @waiting_articles.blank? %>
+        <div class="text-gray-400 italic">No articles waiting for review.</div>
+      <% end %>
+    </div>
+  </div>
+
+  <%# -------- Published Section -------- %>
+  <div class="mb-8">
+    <h2 class="text-xl font-bold mb-4 text-green-700 flex items-center gap-2">
+      <span class="inline-block w-3 h-3 bg-green-400 rounded-full"></span>
+      Published
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+      <% @published_articles.each do |article| %>
+        <%= render partial: "admin/articles/partials/card", locals: { article: article } %>
+      <% end %>
+      <% if @published_articles.blank? %>
+        <div class="text-gray-400 italic">No published articles.</div>
+      <% end %>
+    </div>
   </div>
 </div>

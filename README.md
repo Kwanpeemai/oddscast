@@ -1,24 +1,56 @@
-# README
+# Oddscast
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+โปรเจกต์ **Oddscast** เป็นเว็บแอปพลิเคชันที่พัฒนาด้วย **Ruby on Rails**  
 
-Things you may want to cover:
+## ฟีเจอร์หลัก
+- ระบบจัดการบทความ (Article Management)
+- ระบบผู้ใช้ (User Management)
+- ระบบผู้ดูแล (Admin Management)
+- รองรับการรันเทสต์ด้วย RSpec
 
-* Ruby version
+## การติดตั้ง
 
-* System dependencies
+### 1. Clone โปรเจกต์
+```bash
+git clone https://github.com/Kwanpeemai/oddscast.git
 
-* Configuration
+cd oddscast
 
-* Database creation
+code .
+```
 
-* Database initialization
+### 2. ติดตั้ง dependencies
+```bash
+bundle install
+```
 
-* How to run the test suite
+### 3. สร้างฐานข้อมูลและรัน migrations
+```bash
+rails db:migrate
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+### 4. สร้าง Admin User
+```bash
+rails c
+```
 
-* Deployment instructions
+#### จากนั้นรันคำสั่งใน console:
 
-* ...
+```bash
+User.create!(
+  email_address: "admin@example.com",
+  password: "password123",
+  password_confirmation: "password123",
+  admin: true
+)
+```
+
+### 5. รันโปรเจกต์
+```bash
+bin/dev
+```
+
+## การรันเทสต์
+```bash
+bundle exec rspec spec
+```

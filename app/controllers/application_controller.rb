@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
+    @current_user ||= begin
+      session = Session.find_by(id: cookies.signed[:session_id])
+      session&.user
+    end
   end
 end

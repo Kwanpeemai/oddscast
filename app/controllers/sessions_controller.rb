@@ -15,7 +15,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    terminate_session
-    redirect_to new_session_path
+    Current.session&.destroy
+    cookies.delete(:session_id)
+    redirect_to root_path, notice: "Signed out!"
   end
 end

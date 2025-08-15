@@ -13,7 +13,7 @@ RSpec.describe 'Admin can approve article', type: :system do
     expect(page).to have_button('Reject')
     sleep 2
     click_button 'Approve'
-    expect(page).to have_content('Article approved.')
-    expect(page).to have_content('Published')
+    expect(page).to have_link('Edit')
+    expect(page).to have_link('Back to Articles')
   end
 end

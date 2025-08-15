@@ -10,6 +10,26 @@ class ArticlesController < ApplicationController
     @articles = Article.published.order(created_at: :desc).limit(5)
     @highlight = @articles.first
     @other_articles = @articles.offset(1) # หรือ : offset/more logic flex
+
+  case params[:status]
+  when "draft"
+    @draft_articles = Article.where(status: :draft)
+    @waiting_articles = []
+    @published_articles = []
+  when "waiting"
+    @draft_articles = []
+    @waiting_articles = Article.where(status: :waiting)
+    @published_articles = []
+  when "published"
+    @draft_articles = []
+    @waiting_articles = []
+    @published_articles = Article.where(status: :published)
+  else # all
+    @draft_articles = Article.where(status: :draft)
+    @waiting_articles = Article.where(status: :waiting)
+    @published_articles = Article.where(status: :published)
+
+  end
   end
   # GET /articles/1 or /articles/1.json
   def show

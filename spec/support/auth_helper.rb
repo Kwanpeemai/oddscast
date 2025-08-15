@@ -10,6 +10,6 @@ module AuthHelper
     click_button 'Sign in'
 
     expect(page).to have_current_path(admin_articles_path)
-    expect(page).to have_content('Create New Article')
+    expect(page).to have_content('Create Article')
   end
 end

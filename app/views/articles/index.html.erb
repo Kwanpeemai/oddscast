@@ -1,8 +1,8 @@
 <section class="py-8 mb-6 bg-white">
+  <%= render "articles/partials/editorial", article: @highlight, other_articles: @other_articles %>
   <%= render "articles/partials/event_highlight", article: [ :admin, @article ] %>
   <%= render "articles/partials/youtube_clip" %>
   <%= render "articles/partials/list" %>
   <%# <%= render "articles/partials/article_highlight" %> 
-  <%= render "articles/partials/editorial", article: @highlight, other_articles: @other_articles %>
   <%= render "articles/partials/people_in_oddscast" %>
 </section>

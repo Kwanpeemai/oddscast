@@ -8,10 +8,12 @@
     <%= article.description %>
   </p>
   <p>
-    <% if article.cover_image.attached? %>
-    <%= image_tag article.cover_image %>
-    <% else %>
-    No cover image available.
+    <% if article.present? %>
+      <% if article.cover_image.attached? %>
+        <%= image_tag article.cover_image %>
+      <% else %>
+        No cover image available.
+      <% end %>
     <% end %>
   </p>
 </div>

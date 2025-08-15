@@ -16,6 +16,7 @@ module Admin
     # GET /admin/articles/new
     def new
       @article = Article.new(content: Content.new)
+      @article.build_content
     end
 
     # GET /admin/articles/1/edit

@@ -1,28 +1,27 @@
 <%# app/views/articles/_event_highlight.html.erb %>
-<div class="container mx-auto px-6 py-10 mb-6 mt-10">
+<div class="container mx-auto px-6 py-10 mb-6">
   <h1 class="text-3xl font-extrabold mb-6">บทความ</h1>
-
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
     <div class="lg:col-span-7">
       <div class="mb-6">
-        <% if article.cover_image.attached? %>
-          <%= image_tag article.cover_image, alt: article.title, class: "w-full h-64 object-cover rounded-sm shadow-sm" %>
-        <% else %>
-          <div class="w-full h-64 flex items-center justify-center bg-gray-200 rounded-sm shadow-sm">
-            <span class="text-gray-600">No cover image available.</span>
-          </div>
+        <% if article.present? %>
+          <% if article.cover_image.attached? %>
+            <%= image_tag article.cover_image, alt: article.title, class: "w-full h-64 object-cover rounded-sm shadow-sm" %>
+          <% else %>
+            <div class="w-full h-64 flex items-center justify-center bg-gray-200 rounded-sm shadow-sm">
+              <span class="text-gray-600">No cover image available.</span>
+            </div>
+          <% end %>
         <% end %>
       </div>
       <h2 class="text-2xl font-extrabold mb-2"><%= article.title %></h2>
       <p class="text-base text-gray-800 mb-6"><%= article.description %></p>
       <%= link_to "SEE MORE →", article_path(article), class: "inline-block bg-neutral-800 hover:bg-neutral-300 hover:text-neutral-950 text-white font-semibold px-5 py-3 rounded-full shadow" %>
     </div>
-
     <!-- Divider -->
     <div class="hidden lg:block lg:col-span-1">
       <div class="h-full border-l border-gray-200 mx-auto" style="width:1px"></div>
     </div>
-
     <!-- Sidebar -->
     <div class="lg:col-span-4 space-y-8">
       <%# คุณอาจเอาบทความอื่นมาโชว์ใน sidebar ได้ถ้ามี อันนี้คือ demo fix เป็น array %>

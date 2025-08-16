@@ -1,15 +1,24 @@
-<%# Notice message %>
+<% if notice %>
+  <div class="max-w-2xl mx-auto mt-4 px-4 py-3 bg-green-100 text-green-800 rounded shadow">
+    <%= notice %>
+  </div>
+<% end %>
+
+<% if alert %>
+  <div class="max-w-2xl mx-auto mt-4 px-4 py-3 bg-red-100 text-red-800 rounded shadow">
+    <%= alert %>
+  </div>
+<% end %>
+
 <div class="max-w-2xl mx-auto mt-10 mb-16 px-4">
   <div class="bg-white rounded-xl shadow p-8">
 
-    <%# Toolbar ปุ่มอยู่มุมขวาบน %>
     <div class="flex justify-end mb-4 space-x-2">
       <%= link_to "Edit", edit_admin_article_path(@article),
             class: "px-4 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded font-semibold text-sm shadow transition" %>
       <%= button_to "Delete", [:admin, @article], method: :delete, data: { confirm: "Are you sure you want to delete this article?" },
             class: "px-4 py-1 bg-red-600 hover:bg-red-700 text-white rounded font-semibold text-sm shadow transition" %>
       
-      <%# เงื่อนไขปุ่มตามสถานะบทความ %>
       <% if @article.status == "draft" %>
         <%= button_to "Send for review", submit_admin_article_path(@article),
               method: :patch,
@@ -27,7 +36,6 @@
       <% end %>
     </div>
 
-    <%# รูปหรือ Placeholder %>
     <div class="w-full mb-6">
       <% if @article.cover_image.attached? %>
         <%= image_tag @article.cover_image, alt: @article.title, class: "w-full max-h-64 object-cover rounded" %>
@@ -38,7 +46,6 @@
       <% end %>
     </div>
 
-    <%# เนื้อหา %>
     <h1 class="text-2xl md:text-3xl font-bold mb-3 text-gray-900"><%= @article.title %></h1>
     <div class="mb-6 text-gray-700 text-base leading-relaxed break-words">
       <%= simple_format(@article.description) %>

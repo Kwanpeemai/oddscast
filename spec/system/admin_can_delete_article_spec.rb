@@ -9,6 +9,7 @@ RSpec.describe 'Admin can delete article', type: :system do
     visit admin_article_path(article)
     click_button 'Delete'
 
-    expect(page).to have_current_path(admin_articles_path)
+    expect(page).to have_content("Article was successfully destroyed.")
+    expect(Article.exists?(article.id)).to be_falsey
   end
 end

@@ -11,6 +11,9 @@ RSpec.describe 'Admin can create article', type: :system, js: true do
 
     click_button 'Save Article'
 
-    expect(page).to have_current_path(%r{/admin/articles/\d+})
+    expect(page).to have_content('Article was successfully created.')
+
+    expect(page).to have_content('Test Title')
+    expect(page).to have_content('Test description')
   end
 end

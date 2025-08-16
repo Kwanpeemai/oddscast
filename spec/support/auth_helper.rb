@@ -9,7 +9,9 @@ module AuthHelper
     fill_in 'Enter your password', with: 'password'
     click_button 'Sign in'
 
-    expect(page).to have_current_path(admin_articles_path)
+    expect(page).to have_content('Logged in successfully.')
     expect(page).to have_content('Create Article')
+    expect(page).to have_content('Sign out')
+    user
   end
 end
